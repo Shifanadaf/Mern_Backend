@@ -16,7 +16,7 @@ pipeline {
             }
         }
         
-        stage('Install') {
+        stage('Install and Build') {
             steps {
                 bat '''npm install
                 npm run lint'''  
@@ -24,7 +24,7 @@ pipeline {
         }
 
         
-        stage('SonarAnalysis') {
+        stage('SonarCodeAnalysis') {
             environment {
                 SONAR_TOKEN = credentials('sonarqube-token')  
             }
@@ -42,10 +42,10 @@ pipeline {
 
     post {
         success {
-            echo "Pipeline SUCCESSFULLY build"
+            echo "Pipeline SUCCESSFULLY Build"
         }
         failure {
-            echo "failed"
+            echo " Pipeline failed"
         }
     }
 }
