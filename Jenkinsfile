@@ -6,7 +6,7 @@ pipeline {
     }
     
     environment {
-        NODE_VERSION = '23'
+        NODEJS_HOME = 'C:\\Program Files\\nodejs'
     }
 
     stages {
@@ -23,7 +23,7 @@ pipeline {
             }
         }
 
-        // Removed Build stage as it is not needed for backend
+        
         stage('SonarAnalysis') {
             environment {
                 SONAR_TOKEN = credentials('sonarqube-token')  
@@ -31,10 +31,10 @@ pipeline {
             steps {
                 bat '''
                 sonar-scanner ^
-                -Dsonar.projectKey=backend ^
+                -Dsonar.projectKey=Mern_Backend ^
                 -Dsonar.sources=. ^
                 -Dsonar.host.url=http://localhost:9000 ^
-                -Dsonar.token=sqp_48eaea52f16c865f2f4183dcd5f0a97f21b3d43b ^
+                -Dsonar.token=sqp_f4f0cbc73d62a791503647c7a8a6d0c7a80db215 ^
                 '''
             }
         }
@@ -42,10 +42,10 @@ pipeline {
 
     post {
         success {
-            echo "DONE SUCCESSFULLY"
+            echo "Pipeline SUCCESSFULLY build"
         }
         failure {
-            echo "SOMETHING IS WRONG"
+            echo "failed"
         }
     }
 }
